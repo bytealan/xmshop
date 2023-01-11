@@ -1,6 +1,6 @@
-import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 import 'package:get/get.dart';
 import 'package:xmshop/app/services/iconFonts.dart';
 import 'package:xmshop/app/services/keepAliveWrapper.dart';
@@ -109,7 +109,7 @@ class HomeView extends GetView<HomeController> {
             child: Swiper(
               itemBuilder: (context, index) {
                 return Image.network(
-                  controller.swiperList[index]["url"],
+                  "https://xiaomi.itying.com/${controller.swiperList[index]["pic"]}",
                   fit: BoxFit.fill,
                 );
               },
