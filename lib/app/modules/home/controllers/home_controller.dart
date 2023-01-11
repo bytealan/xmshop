@@ -3,7 +3,17 @@ import 'package:get/get.dart';
 
 class HomeController extends GetxController {
   final ScrollController scrollController = new ScrollController();
+  // 导航状态
   RxBool flag = false.obs;
+
+  List swiperList = [
+    {
+      "url": "https://www.itying.com/images/focus/focus01.png",
+    },
+    {
+      "url": "https://www.itying.com/images/focus/focus02.png",
+    }
+  ];
 
   @override
   void onInit() {
