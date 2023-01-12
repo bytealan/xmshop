@@ -149,7 +149,7 @@ class HomeView extends GetView<HomeController> {
                     height: ScreenAdapter.height(140),
                     width: ScreenAdapter.height(140),
                     child: Image.network(
-                      "https://xiaomi.itying.com/${controller.categoryList[gridIndex + (swiperIndex * 10)].pic}",
+                      "https://xiaomi.itying.com/${controller.categorySwiperList[gridIndex + (swiperIndex * 10)].pic}",
                       fit: BoxFit.fitHeight,
                     ),
                   ),
@@ -157,7 +157,7 @@ class HomeView extends GetView<HomeController> {
                     padding:
                         EdgeInsets.fromLTRB(0, ScreenAdapter.height(4), 0, 0),
                     child: Text(
-                      "${controller.categoryList[gridIndex + (swiperIndex * 10)].title}",
+                      "${controller.categorySwiperList[gridIndex + (swiperIndex * 10)].title}",
                       style: TextStyle(fontSize: ScreenAdapter.fontSize(34)),
                     ),
                   ),
@@ -166,7 +166,7 @@ class HomeView extends GetView<HomeController> {
             }),
           );
         },
-        itemCount: controller.categoryList.length ~/ 10,
+        itemCount: controller.categorySwiperList.length ~/ 10,
         pagination: SwiperPagination(
           margin: const EdgeInsets.all(0.0),
           builder: SwiperCustomPagination(
@@ -212,6 +212,187 @@ class HomeView extends GetView<HomeController> {
     );
   }
 
+  // 热销臻选
+  Widget _bestSelling() {
+    return Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.fromLTRB(
+            ScreenAdapter.width(30),
+            ScreenAdapter.height(40),
+            ScreenAdapter.width(30),
+            ScreenAdapter.height(20),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                "热销臻选",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: ScreenAdapter.fontSize(46),
+                ),
+              ),
+              Text(
+                "更多手机 >",
+                style: TextStyle(
+                  color: Colors.black54,
+                  fontSize: ScreenAdapter.fontSize(38),
+                ),
+              )
+            ],
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.fromLTRB(
+            ScreenAdapter.width(20),
+            0,
+            ScreenAdapter.width(20),
+            ScreenAdapter.height(20),
+          ),
+          child: Row(
+            children: [
+              // 左侧
+              Expanded(
+                flex: 1,
+                child: SizedBox(
+                  height: ScreenAdapter.height(738),
+                  child: Swiper(
+                    itemBuilder: (context, index) {
+                      return Image.network(
+                        "https://xiaomi.itying.com/${controller.bestSellingSwiperList[index].pic}",
+                        fit: BoxFit.fill,
+                      );
+                    },
+                    itemCount: controller.bestSellingSwiperList.length,
+                    pagination: SwiperPagination(
+                      margin: const EdgeInsets.all(0.0),
+                      builder: SwiperCustomPagination(builder:
+                          (BuildContext context, SwiperPluginConfig config) {
+                        return ConstrainedBox(
+                          constraints: BoxConstraints.expand(
+                              height: ScreenAdapter.height(30)),
+                          child: Row(
+                            children: <Widget>[
+                              Expanded(
+                                child: Align(
+                                  alignment: Alignment.center,
+                                  child: const RectSwiperPaginationBuilder(
+                                    color: Colors.black12,
+                                    activeColor: Colors.black,
+                                  ).build(context, config),
+                                ),
+                              )
+                            ],
+                          ),
+                        );
+                      }),
+                    ),
+                    autoplay: true,
+                    loop: true,
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: ScreenAdapter.width(20),
+              ),
+              // 右侧
+              Expanded(
+                flex: 1,
+                child: SizedBox(
+                  height: ScreenAdapter.height(738),
+                  child: Column(
+                    children:
+                        controller.sellingList.asMap().entries.map((entrie) {
+                      var value = entrie.value;
+                      return Expanded(
+                        flex: 1,
+                        child: Container(
+                          margin: EdgeInsets.fromLTRB(
+                              0,
+                              0,
+                              0,
+                              entrie.key == controller.sellingList.length - 1
+                                  ? 0
+                                  : ScreenAdapter.height(20)),
+                          decoration: BoxDecoration(
+                            borderRadius:
+                                BorderRadius.circular(ScreenAdapter.width(10)),
+                            color: const Color.fromARGB(255, 247, 247, 247),
+                          ),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                flex: 3,
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      height: ScreenAdapter.height(20),
+                                    ),
+                                    Text(
+                                      "${value.title}",
+                                      style: TextStyle(
+                                          fontSize: ScreenAdapter.fontSize(38),
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    SizedBox(
+                                      height: ScreenAdapter.height(20),
+                                    ),
+                                    Text(
+                                      "${value.subTitle}",
+                                      style: TextStyle(
+                                        fontSize: ScreenAdapter.fontSize(28),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: ScreenAdapter.height(20),
+                                    ),
+                                    Text(
+                                      "¥${value.price}元",
+                                      style: TextStyle(
+                                        fontSize: ScreenAdapter.fontSize(34),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                flex: 2,
+                                child: Container(
+                                  padding:
+                                      EdgeInsets.all(ScreenAdapter.height(8)),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(
+                                          ScreenAdapter.width(10)),
+                                      bottomRight: Radius.circular(
+                                          ScreenAdapter.width(10)),
+                                    ),
+                                    image: DecorationImage(
+                                      image: NetworkImage(
+                                        "https://xiaomi.itying.com/${value.pic}",
+                                      ),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
   // 内容
   Widget _homeBody() {
     return Positioned(
@@ -226,6 +407,7 @@ class HomeView extends GetView<HomeController> {
           _banner(),
           _category(),
           _banner2(),
+          _bestSelling(),
         ],
       ),
     );
