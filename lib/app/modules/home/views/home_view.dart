@@ -109,7 +109,7 @@ class HomeView extends GetView<HomeController> {
             child: Swiper(
               itemBuilder: (context, index) {
                 return Image.network(
-                  "https://xiaomi.itying.com/${controller.swiperList[index]["pic"]}",
+                  "https://xiaomi.itying.com/${controller.swiperList[index].pic}",
                   fit: BoxFit.fill,
                 );
               },
