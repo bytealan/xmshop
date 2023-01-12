@@ -93,6 +93,107 @@ class HomeView extends GetView<HomeController> {
         ));
   }
 
+  // 轮播图
+  Widget _focus() {
+    return SizedBox(
+      height: ScreenAdapter.height(750),
+      width: ScreenAdapter.width(1080),
+      child: Swiper(
+        itemBuilder: (context, index) {
+          return Image.network(
+            "https://xiaomi.itying.com/${controller.swiperList[index].pic}",
+            fit: BoxFit.fill,
+          );
+        },
+        itemCount: controller.swiperList.length,
+        pagination: const SwiperPagination(
+          builder: SwiperPagination.rect,
+        ),
+        autoplay: true,
+        loop: true,
+      ),
+    );
+  }
+
+  // banner
+  Widget _banner() {
+    return SizedBox(
+      width: ScreenAdapter.width(1080),
+      height: ScreenAdapter.height(92),
+      child: Image.asset(
+        "assets/images/xiaomiBanner.png",
+        fit: BoxFit.cover,
+      ),
+    );
+  }
+
+  // 分类
+  Widget _category() {
+    return SizedBox(
+      width: ScreenAdapter.width(1080),
+      height: ScreenAdapter.height(480),
+      child: Swiper(
+        itemBuilder: (context, swiperIndex) {
+          return GridView.builder(
+            itemCount: 10,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 5,
+              crossAxisSpacing: ScreenAdapter.width(20),
+              mainAxisSpacing: ScreenAdapter.height(20),
+            ),
+            itemBuilder: ((context, gridIndex) {
+              return Column(
+                children: [
+                  Container(
+                    alignment: Alignment.center,
+                    height: ScreenAdapter.height(140),
+                    width: ScreenAdapter.height(140),
+                    child: Image.network(
+                      "https://xiaomi.itying.com/${controller.categoryList[gridIndex + (swiperIndex * 10)].pic}",
+                      fit: BoxFit.fitHeight,
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        EdgeInsets.fromLTRB(0, ScreenAdapter.height(4), 0, 0),
+                    child: Text(
+                      "${controller.categoryList[gridIndex + (swiperIndex * 10)].title}",
+                      style: TextStyle(fontSize: ScreenAdapter.fontSize(34)),
+                    ),
+                  ),
+                ],
+              );
+            }),
+          );
+        },
+        itemCount: controller.categoryList.length ~/ 10,
+        pagination: SwiperPagination(
+          margin: const EdgeInsets.all(0.0),
+          builder: SwiperCustomPagination(
+              builder: (BuildContext context, SwiperPluginConfig config) {
+            return ConstrainedBox(
+              constraints:
+                  BoxConstraints.expand(height: ScreenAdapter.height(20)),
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: const RectSwiperPaginationBuilder(
+                        color: Colors.black12,
+                        activeColor: Colors.black,
+                      ).build(context, config),
+                    ),
+                  )
+                ],
+              ),
+            );
+          }),
+        ),
+      ),
+    );
+  }
+
   // 内容
   Widget _homeBody() {
     return Positioned(
@@ -103,24 +204,9 @@ class HomeView extends GetView<HomeController> {
       child: ListView(
         controller: controller.scrollController,
         children: [
-          SizedBox(
-            height: ScreenAdapter.height(750),
-            width: ScreenAdapter.width(1080),
-            child: Swiper(
-              itemBuilder: (context, index) {
-                return Image.network(
-                  "https://xiaomi.itying.com/${controller.swiperList[index].pic}",
-                  fit: BoxFit.fill,
-                );
-              },
-              itemCount: controller.swiperList.length,
-              pagination: const SwiperPagination(
-                builder: SwiperPagination.rect,
-              ),
-              autoplay: true,
-              loop: true,
-            ),
-          )
+          _focus(),
+          _banner(),
+          _category(),
         ],
       ),
     );
@@ -129,19 +215,20 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return KeepAliveWrapper(
-        child: Obx((() => AnnotatedRegion(
-              value: controller.flag.value
-                  ? SystemUiOverlayStyle.dark
-                  : SystemUiOverlayStyle.light,
-              child: Scaffold(
-                body: Stack(
-                  children: [
-                    _homeBody(),
-                    _appBar(),
-                  ],
-                ),
+      child: Obx((() => AnnotatedRegion(
+            value: controller.flag.value
+                ? SystemUiOverlayStyle.dark
+                : SystemUiOverlayStyle.light,
+            child: Scaffold(
+              body: Stack(
+                children: [
+                  _homeBody(),
+                  _appBar(),
+                ],
               ),
-            ))));
+            ),
+          ))),
+    );
   }
 }
 
