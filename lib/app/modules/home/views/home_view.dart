@@ -194,6 +194,24 @@ class HomeView extends GetView<HomeController> {
     );
   }
 
+  // banner2
+  Widget _banner2() {
+    return Padding(
+      padding: EdgeInsets.fromLTRB(ScreenAdapter.width(20),
+          ScreenAdapter.height(20), ScreenAdapter.width(20), 0),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(ScreenAdapter.width(20)),
+          image: const DecorationImage(
+            image: AssetImage("assets/images/xiaomiBanner2.png"),
+            fit: BoxFit.cover,
+          ),
+        ),
+        height: ScreenAdapter.height(420),
+      ),
+    );
+  }
+
   // 内容
   Widget _homeBody() {
     return Positioned(
@@ -207,6 +225,7 @@ class HomeView extends GetView<HomeController> {
           _focus(),
           _banner(),
           _category(),
+          _banner2(),
         ],
       ),
     );
@@ -231,70 +250,3 @@ class HomeView extends GetView<HomeController> {
     );
   }
 }
-
-
-
-// 旧版导航栏
-
-// Positioned(
-//           top: 0,
-//           left: 0,
-//           right: 0,
-//           child: Obx((() => AppBar(
-//                 backgroundColor:
-//                     controller.flag.value ? Colors.white : Colors.transparent,
-//                 title: AnimatedContainer(
-//                   duration: const Duration(seconds: 1),
-//                   width: controller.flag.value
-//                       ? ScreenAdapter.width(800)
-//                       : ScreenAdapter.width(620),
-//                   height: ScreenAdapter.height(96),
-//                   decoration: BoxDecoration(
-//                     color: controller.flag.value
-//                         ? const Color.fromARGB(128, 185, 185, 185)
-//                         : const Color.fromARGB(128, 255, 255, 255),
-//                     borderRadius: BorderRadius.circular(30),
-//                   ),
-//                   child: Row(
-//                     crossAxisAlignment: CrossAxisAlignment.center,
-//                     children: [
-//                       Padding(
-//                         padding: EdgeInsets.fromLTRB(ScreenAdapter.width(15), 0,
-//                             ScreenAdapter.width(15), 0),
-//                         child: const Icon(Icons.search),
-//                       ),
-//                       Text(
-//                         "手机",
-//                         style: TextStyle(
-//                           fontSize: ScreenAdapter.fontSize(32),
-//                         ),
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//                 centerTitle: true,
-//                 elevation: 0,
-//                 leading: controller.flag.value
-//                     ? Container()
-//                     : const Icon(
-//                         Iconfonts.xiaomi,
-//                         color: Colors.white,
-//                       ),
-//                 leadingWidth:
-//                     controller.flag.value ? 0 : ScreenAdapter.width(140),
-//                 actions: [
-//                   IconButton(
-//                     onPressed: (() {}),
-//                     icon: const Icon(Icons.qr_code),
-//                     color:
-//                         controller.flag.value ? Colors.black54 : Colors.white,
-//                   ),
-//                   IconButton(
-//                     onPressed: (() {}),
-//                     icon: const Icon(Icons.message),
-//                     color:
-//                         controller.flag.value ? Colors.black54 : Colors.white,
-//                   ),
-//                 ],
-//               ))),
-//         )
