@@ -18,6 +18,8 @@ class HomeController extends GetxController {
 
   RxList<PlistItemModel> sellingList = <PlistItemModel>[].obs;
 
+  RxList<PlistItemModel> goodsList = <PlistItemModel>[].obs;
+
   @override
   void onInit() {
     super.onInit();
@@ -26,6 +28,7 @@ class HomeController extends GetxController {
     getBestSellingData();
     getCategoryData();
     getSellingListData();
+    getGoodsListData();
 
     setScrollListener();
   }
@@ -56,6 +59,13 @@ class HomeController extends GetxController {
         .get("https://xiaomi.itying.com/api/plist?is_hot=1&pageSize=3");
     PlistModel pList = PlistModel.fromJson(res.data);
     sellingList.value = pList.result!;
+    update();
+  }
+
+  getGoodsListData() async {
+    var res = await Dio().get("http://xiaomi.itying.com/api/plist?is_best=1");
+    PlistModel pList = PlistModel.fromJson(res.data);
+    goodsList.value = pList.result!;
     update();
   }
 

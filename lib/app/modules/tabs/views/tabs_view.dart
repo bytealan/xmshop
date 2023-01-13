@@ -10,11 +10,12 @@ class TabsView extends GetView<TabsController> {
   Widget build(BuildContext context) {
     return Obx((() => Scaffold(
           body: PageView(
-            children: controller.pages,
+            // physics: const NeverScrollableScrollPhysics(),
             controller: controller.pageController,
             onPageChanged: (value) {
               controller.setCurrentIndex(value);
             },
+            children: controller.pages,
           ),
           bottomNavigationBar: BottomNavigationBar(
             fixedColor: Colors.red,

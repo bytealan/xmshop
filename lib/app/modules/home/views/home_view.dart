@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 import 'package:get/get.dart';
 import 'package:xmshop/app/services/iconFonts.dart';
@@ -393,6 +396,106 @@ class HomeView extends GetView<HomeController> {
     );
   }
 
+  Widget _bestGoods() {
+    return Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.fromLTRB(
+            ScreenAdapter.width(30),
+            ScreenAdapter.height(40),
+            ScreenAdapter.width(30),
+            ScreenAdapter.height(20),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                "省心优惠",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: ScreenAdapter.fontSize(46),
+                ),
+              ),
+              Text(
+                "全部优惠 >",
+                style: TextStyle(
+                  color: Colors.black54,
+                  fontSize: ScreenAdapter.fontSize(38),
+                ),
+              )
+            ],
+          ),
+        ),
+        Container(
+          padding: EdgeInsets.all(ScreenAdapter.width(20)),
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Color.fromARGB(255, 250, 250, 250),
+                Color.fromARGB(255, 247, 247, 247)
+              ],
+            ),
+          ),
+          child: MasonryGridView.count(
+            crossAxisCount: 2,
+            mainAxisSpacing: ScreenAdapter.width(30),
+            crossAxisSpacing: ScreenAdapter.width(30),
+            itemCount: controller.goodsList.length,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemBuilder: (context, index) {
+              return Container(
+                padding: EdgeInsets.all(ScreenAdapter.width(20)),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(ScreenAdapter.width(10)),
+                      child: Image.network(
+                        "https://xiaomi.itying.com/${controller.goodsList[index].pic}",
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    Text(
+                      "${controller.goodsList[index].title}",
+                      style: TextStyle(
+                        fontSize: ScreenAdapter.fontSize(36),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      "${controller.goodsList[index].subTitle}",
+                      style: TextStyle(
+                        fontSize: ScreenAdapter.fontSize(30),
+                        color: Colors.black54,
+                      ),
+                    ),
+                    SizedBox(
+                      height: ScreenAdapter.height(20),
+                    ),
+                    Text(
+                      "¥${controller.goodsList[index].price}元",
+                      style: TextStyle(
+                        fontSize: ScreenAdapter.fontSize(32),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
   // 内容
   Widget _homeBody() {
     return Positioned(
@@ -408,6 +511,7 @@ class HomeView extends GetView<HomeController> {
           _category(),
           _banner2(),
           _bestSelling(),
+          _bestGoods(),
         ],
       ),
     );
