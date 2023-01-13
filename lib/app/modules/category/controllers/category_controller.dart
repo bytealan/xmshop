@@ -1,23 +1,36 @@
+import 'package:dio/dio.dart';
 import 'package:get/get.dart';
+import 'package:xmshop/app/models/category_model.dart';
 
 class CategoryController extends GetxController {
-  //TODO: Implement CategoryController
+  RxInt selectIndex = 0.obs;
+  RxList<CategoryItemModel> leftCategoryList = <CategoryItemModel>[].obs;
+  RxList<CategoryItemModel> rightCategoryList = <CategoryItemModel>[].obs;
 
-  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
+    getLeftCategoryData();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
+  void getLeftCategoryData() async {
+    var res = await Dio().get("https://xiaomi.itying.com/api/pcate");
+    CategoryModel pList = CategoryModel.fromJson(res.data);
+    leftCategoryList.value = pList.result!;
+    getRightCategoryData(leftCategoryList[0].sId!);
+    update();
   }
 
-  @override
-  void onClose() {
-    super.onClose();
+  void getRightCategoryData(id) async {
+    var res = await Dio().get("https://xiaomi.itying.com/api/pcate?pid=$id");
+    CategoryModel pList = CategoryModel.fromJson(res.data);
+    rightCategoryList.value = pList.result!;
+    update();
   }
 
-  void increment() => count.value++;
+  void changeIndex(index) {
+    selectIndex.value = index;
+    getRightCategoryData(leftCategoryList[index].sId);
+    update();
+  }
 }
