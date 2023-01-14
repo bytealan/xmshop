@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:xmshop/app/services/https_client.dart';
 
 import '../controllers/category_controller.dart';
 
-import '../../../services/screenAdapter.dart';
+import '../../../services/screen_adapter.dart';
 
 class CategoryView extends GetView<CategoryController> {
   const CategoryView({Key? key}) : super(key: key);
@@ -76,7 +77,8 @@ class CategoryView extends GetView<CategoryController> {
                       alignment: Alignment.center,
                       width: double.infinity,
                       child: Image.network(
-                        "https://xiaomi.itying.com/${controller.rightCategoryList[index].pic}",
+                        HttpsClient.replaceUri(
+                            controller.rightCategoryList[index].pic),
                         fit: BoxFit.cover,
                       ),
                     ),

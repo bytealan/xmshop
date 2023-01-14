@@ -5,9 +5,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 import 'package:get/get.dart';
+import 'package:xmshop/app/services/https_client.dart';
 import 'package:xmshop/app/services/iconFonts.dart';
-import 'package:xmshop/app/services/keepAliveWrapper.dart';
-import 'package:xmshop/app/services/screenAdapter.dart';
+import 'package:xmshop/app/services/keep_alive_wrapper.dart';
+import 'package:xmshop/app/services/screen_adapter.dart';
 
 import '../controllers/home_controller.dart';
 
@@ -104,7 +105,7 @@ class HomeView extends GetView<HomeController> {
       child: Swiper(
         itemBuilder: (context, index) {
           return Image.network(
-            "https://xiaomi.itying.com/${controller.swiperList[index].pic}",
+            HttpsClient.replaceUri(controller.swiperList[index].pic),
             fit: BoxFit.fill,
           );
         },
@@ -152,7 +153,9 @@ class HomeView extends GetView<HomeController> {
                     height: ScreenAdapter.height(140),
                     width: ScreenAdapter.height(140),
                     child: Image.network(
-                      "https://xiaomi.itying.com/${controller.categorySwiperList[gridIndex + (swiperIndex * 10)].pic}",
+                      HttpsClient.replaceUri(controller
+                          .categorySwiperList[gridIndex + (swiperIndex * 10)]
+                          .pic),
                       fit: BoxFit.fitHeight,
                     ),
                   ),
@@ -264,7 +267,8 @@ class HomeView extends GetView<HomeController> {
                   child: Swiper(
                     itemBuilder: (context, index) {
                       return Image.network(
-                        "https://xiaomi.itying.com/${controller.bestSellingSwiperList[index].pic}",
+                        HttpsClient.replaceUri(
+                            controller.bestSellingSwiperList[index].pic),
                         fit: BoxFit.fill,
                       );
                     },
@@ -374,7 +378,7 @@ class HomeView extends GetView<HomeController> {
                                     ),
                                     image: DecorationImage(
                                       image: NetworkImage(
-                                        "https://xiaomi.itying.com/${value.pic}",
+                                        HttpsClient.replaceUri(value.pic),
                                       ),
                                       fit: BoxFit.cover,
                                     ),
@@ -459,7 +463,7 @@ class HomeView extends GetView<HomeController> {
                     Container(
                       padding: EdgeInsets.all(ScreenAdapter.width(10)),
                       child: Image.network(
-                        "https://xiaomi.itying.com/${controller.goodsList[index].pic}",
+                        HttpsClient.replaceUri(controller.goodsList[index].pic),
                         fit: BoxFit.cover,
                       ),
                     ),
