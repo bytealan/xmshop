@@ -17,6 +17,8 @@ void main() {
     builder: ((context, child) {
       return GetMaterialApp(
         title: "Application",
+        theme: ThemeData(primarySwatch: Colors.grey),
+        defaultTransition: Transition.rightToLeft,
         debugShowCheckedModeBanner: false,
         initialRoute: AppPages.INITIAL,
         getPages: AppPages.routes,

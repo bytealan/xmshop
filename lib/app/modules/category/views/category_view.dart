@@ -71,28 +71,35 @@ class CategoryView extends GetView<CategoryController> {
                 childAspectRatio: 240 / 340,
               ),
               itemBuilder: ((context, index) {
-                return Column(
-                  children: [
-                    Container(
-                      alignment: Alignment.center,
-                      width: double.infinity,
-                      child: Image.network(
-                        HttpsClient.replaceUri(
-                            controller.rightCategoryList[index].pic),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(
-                          0, ScreenAdapter.height(20), 0, 0),
-                      child: Text(
-                        "${controller.rightCategoryList[index].title}",
-                        style: TextStyle(
-                          fontSize: ScreenAdapter.fontSize(34),
+                return InkWell(
+                  onTap: () {
+                    Get.toNamed("/product-list", arguments: {
+                      "cId": controller.rightCategoryList[index].sId
+                    });
+                  },
+                  child: Column(
+                    children: [
+                      Container(
+                        alignment: Alignment.center,
+                        width: double.infinity,
+                        child: Image.network(
+                          HttpsClient.replaceUri(
+                              controller.rightCategoryList[index].pic),
+                          fit: BoxFit.cover,
                         ),
                       ),
-                    ),
-                  ],
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(
+                            0, ScreenAdapter.height(20), 0, 0),
+                        child: Text(
+                          "${controller.rightCategoryList[index].title}",
+                          style: TextStyle(
+                            fontSize: ScreenAdapter.fontSize(34),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 );
               }),
             ))),

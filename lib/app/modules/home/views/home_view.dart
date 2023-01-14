@@ -463,7 +463,8 @@ class HomeView extends GetView<HomeController> {
                     Container(
                       padding: EdgeInsets.all(ScreenAdapter.width(10)),
                       child: Image.network(
-                        HttpsClient.replaceUri(controller.goodsList[index].pic),
+                        HttpsClient.replaceUri(
+                            controller.goodsList[index].sPic),
                         fit: BoxFit.cover,
                       ),
                     ),

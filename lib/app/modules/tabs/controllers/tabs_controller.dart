@@ -7,8 +7,8 @@ import '../../cart/views/cart_view.dart';
 import '../../user/views/user_view.dart';
 
 class TabsController extends GetxController {
-  RxInt currentIndex = 1.obs;
-  PageController pageController = PageController(initialPage: 1);
+  RxInt currentIndex = 0.obs;
+  PageController pageController = PageController(initialPage: 0);
 
   final List<Widget> pages = const [
     HomeView(),
