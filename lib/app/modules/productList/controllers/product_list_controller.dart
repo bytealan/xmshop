@@ -12,7 +12,11 @@ class ProductListController extends GetxController {
   int pageSize = 10;
   bool flag = true;
   RxBool hasData = true.obs;
-  String sort = "";
+  String sort = "all_-1";
+
+  String? keyWords = Get.arguments['keyWords'];
+  String? cId = Get.arguments['cId'];
+  String apiUri = "";
 
   HttpsClient httpsClient = HttpsClient();
 
@@ -44,7 +48,7 @@ class ProductListController extends GetxController {
   ];
 
   RxInt selectHeaderId = 1.obs;
-  RxInt subHeaderListSort = 0.obs;
+  RxInt subHeaderListSort = 1.obs;
 
   @override
   void onInit() {
@@ -67,8 +71,14 @@ class ProductListController extends GetxController {
   void getPlistData() async {
     if (flag && hasData.value) {
       flag = false;
-      var res = await httpsClient.get(
-          "api/plist?cid=${Get.arguments["cId"]}&page=$page&pageSize=$pageSize&sort=$sort");
+      if (cId != null) {
+        apiUri = "api/plist?cid=$cId&page=$page&pageSize=$pageSize&sort=$sort";
+      } else {
+        apiUri =
+            "api/plist?search=$keyWords&page=$page&pageSize=$pageSize&sort=$sort";
+      }
+      print(apiUri);
+      var res = await httpsClient.get(apiUri);
       if (res != null) {
         PlistModel pListModel = PlistModel.fromJson(res.data);
         pList.addAll(pListModel.result!);

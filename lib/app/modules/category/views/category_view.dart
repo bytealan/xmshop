@@ -111,40 +111,45 @@ class CategoryView extends GetView<CategoryController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Container(
-          padding: EdgeInsets.fromLTRB(
-              ScreenAdapter.width(20), 0, ScreenAdapter.width(20), 0),
-          height: ScreenAdapter.height(96),
-          width: ScreenAdapter.width(double.infinity),
-          decoration: BoxDecoration(
-            color: const Color.fromARGB(128, 247, 247, 247),
-            borderRadius: BorderRadius.circular(30),
-          ),
-          child: Row(
-            children: [
-              Expanded(
-                  flex: 1,
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.search,
-                        color: Colors.black12,
-                        size: ScreenAdapter.width(50),
-                      ),
-                      Text(
-                        "手机",
-                        style: TextStyle(
-                            color: Colors.black12,
-                            fontSize: ScreenAdapter.fontSize(36)),
-                      ),
-                    ],
-                  )),
-              Icon(
-                Icons.flip,
-                color: Colors.black12,
-                size: ScreenAdapter.width(50),
-              )
-            ],
+        title: InkWell(
+          onTap: () {
+            Get.toNamed('/search');
+          },
+          child: Container(
+            padding: EdgeInsets.fromLTRB(
+                ScreenAdapter.width(20), 0, ScreenAdapter.width(20), 0),
+            height: ScreenAdapter.height(96),
+            width: ScreenAdapter.width(double.infinity),
+            decoration: BoxDecoration(
+              color: const Color.fromARGB(128, 247, 247, 247),
+              borderRadius: BorderRadius.circular(30),
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                    flex: 1,
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.search,
+                          color: Colors.black12,
+                          size: ScreenAdapter.width(50),
+                        ),
+                        Text(
+                          "手机",
+                          style: TextStyle(
+                              color: Colors.black12,
+                              fontSize: ScreenAdapter.fontSize(36)),
+                        ),
+                      ],
+                    )),
+                Icon(
+                  Icons.flip,
+                  color: Colors.black12,
+                  size: ScreenAdapter.width(50),
+                )
+              ],
+            ),
           ),
         ),
         backgroundColor: Colors.white,

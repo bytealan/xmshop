@@ -22,8 +22,8 @@ class HomeView extends GetView<HomeController> {
         left: 0,
         right: 0,
         child: AnimatedContainer(
-          padding: EdgeInsets.fromLTRB(
-              ScreenAdapter.width(30), ScreenAdapter.height(50), 0, 0),
+          padding: EdgeInsets.fromLTRB(ScreenAdapter.width(30),
+              ScreenAdapter.getStatusBarHeight(), 0, 0),
           duration: const Duration(milliseconds: 500),
           decoration: BoxDecoration(
             color: controller.flag.value ? Colors.white : null,
@@ -44,42 +44,47 @@ class HomeView extends GetView<HomeController> {
               ),
               Expanded(
                   flex: 1,
-                  child: Container(
-                    padding: EdgeInsets.fromLTRB(
-                        ScreenAdapter.width(20), 0, ScreenAdapter.width(20), 0),
-                    height: ScreenAdapter.height(96),
-                    width: ScreenAdapter.width(600),
-                    decoration: BoxDecoration(
-                      color: controller.flag.value
-                          ? const Color.fromARGB(128, 247, 247, 247)
-                          : const Color.fromARGB(128, 255, 255, 255),
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    child: Row(
-                      children: [
-                        Expanded(
-                            flex: 1,
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.search,
-                                  color: Colors.black12,
-                                  size: ScreenAdapter.width(50),
-                                ),
-                                Text(
-                                  "手机",
-                                  style: TextStyle(
-                                      color: Colors.black12,
-                                      fontSize: ScreenAdapter.fontSize(36)),
-                                ),
-                              ],
-                            )),
-                        Icon(
-                          Icons.flip,
-                          color: Colors.black12,
-                          size: ScreenAdapter.width(50),
-                        )
-                      ],
+                  child: InkWell(
+                    onTap: (() {
+                      Get.toNamed('/search');
+                    }),
+                    child: Container(
+                      padding: EdgeInsets.fromLTRB(ScreenAdapter.width(20), 0,
+                          ScreenAdapter.width(20), 0),
+                      height: ScreenAdapter.height(96),
+                      width: ScreenAdapter.width(600),
+                      decoration: BoxDecoration(
+                        color: controller.flag.value
+                            ? const Color.fromARGB(128, 247, 247, 247)
+                            : const Color.fromARGB(128, 255, 255, 255),
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                              flex: 1,
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.search,
+                                    color: Colors.black12,
+                                    size: ScreenAdapter.width(50),
+                                  ),
+                                  Text(
+                                    "手机",
+                                    style: TextStyle(
+                                        color: Colors.black12,
+                                        fontSize: ScreenAdapter.fontSize(36)),
+                                  ),
+                                ],
+                              )),
+                          Icon(
+                            Icons.flip,
+                            color: Colors.black12,
+                            size: ScreenAdapter.width(50),
+                          )
+                        ],
+                      ),
                     ),
                   )),
               IconButton(
@@ -504,7 +509,7 @@ class HomeView extends GetView<HomeController> {
   // 内容
   Widget _homeBody() {
     return Positioned(
-      top: -25,
+      top: -1.0 * ScreenAdapter.getStatusBarHeight(),
       left: 0,
       right: 0,
       bottom: 0,

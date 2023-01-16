@@ -273,22 +273,25 @@ class ProductListView extends GetView<ProductListController> {
           child: Row(
             children: [
               Expanded(
-                  flex: 1,
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.search,
-                        color: Colors.black12,
-                        size: ScreenAdapter.width(50),
-                      ),
-                      Text(
-                        "手机",
-                        style: TextStyle(
-                            color: Colors.black12,
-                            fontSize: ScreenAdapter.fontSize(36)),
-                      ),
-                    ],
-                  )),
+                flex: 1,
+                child: InkWell(
+                    onTap: () => Get.offAndToNamed("/search"),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.search,
+                          color: Colors.black12,
+                          size: ScreenAdapter.width(50),
+                        ),
+                        Text(
+                          controller.keyWords ?? '',
+                          style: TextStyle(
+                              color: Colors.black12,
+                              fontSize: ScreenAdapter.fontSize(36)),
+                        ),
+                      ],
+                    )),
+              ),
               Icon(
                 Icons.flip,
                 color: Colors.black12,
