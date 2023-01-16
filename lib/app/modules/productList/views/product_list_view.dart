@@ -30,34 +30,54 @@ class ProductListView extends GetView<ProductListController> {
               children: controller.subHeaderList.map((item) {
                 return Expanded(
                   flex: 1,
-                  child: InkWell(
-                    onTap: () {
-                      controller.subHeaderChange(item["id"]);
-                    },
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(
-                        0,
-                        ScreenAdapter.height(16),
-                        0,
-                        ScreenAdapter.height(16),
-                      ),
-                      child: Text(
-                        "${item["title"]}",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: controller.selectHeaderId.value == item["id"]
-                              ? Colors.orange
-                              : Colors.black,
-                          fontSize: ScreenAdapter.fontSize(32),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          controller.subHeaderChange(item["id"]);
+                        },
+                        child: Padding(
+                          padding: EdgeInsets.fromLTRB(
+                            0,
+                            ScreenAdapter.height(16),
+                            0,
+                            ScreenAdapter.height(16),
+                          ),
+                          child: Text(
+                            "${item["title"]}",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color:
+                                  controller.selectHeaderId.value == item["id"]
+                                      ? Colors.orange
+                                      : Colors.black,
+                              fontSize: ScreenAdapter.fontSize(32),
+                            ),
+                          ),
                         ),
                       ),
-                    ),
+                      _showIcon(item),
+                    ],
                   ),
                 );
               }).toList(),
             ))),
       ),
     );
+  }
+
+  Widget _showIcon(item) {
+    if ((item["id"] == 2 || item["id"] == 3) &&
+        (controller.subHeaderListSort.value == 1 ||
+            controller.subHeaderListSort.value == -1)) {
+      return Icon(
+        item["sort"] == 1 ? Icons.arrow_drop_up : Icons.arrow_drop_down,
+        color: Colors.black,
+      );
+    } else {
+      return const SizedBox();
+    }
   }
 
   Widget _productList() {
