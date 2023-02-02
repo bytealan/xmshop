@@ -456,47 +456,53 @@ class HomeView extends GetView<HomeController> {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) {
-              return Container(
-                padding: EdgeInsets.all(ScreenAdapter.width(20)),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      padding: EdgeInsets.all(ScreenAdapter.width(10)),
-                      child: Image.network(
-                        HttpsClient.replaceUri(
-                            controller.goodsList[index].sPic),
-                        fit: BoxFit.cover,
+              return InkWell(
+                onTap: () {
+                  Get.toNamed("/product-content",
+                      arguments: {"id": controller.goodsList[index].sId});
+                },
+                child: Container(
+                  padding: EdgeInsets.all(ScreenAdapter.width(20)),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        padding: EdgeInsets.all(ScreenAdapter.width(10)),
+                        child: Image.network(
+                          HttpsClient.replaceUri(
+                              controller.goodsList[index].sPic),
+                          fit: BoxFit.cover,
+                        ),
                       ),
-                    ),
-                    Text(
-                      "${controller.goodsList[index].title}",
-                      style: TextStyle(
-                        fontSize: ScreenAdapter.fontSize(36),
-                        fontWeight: FontWeight.bold,
+                      Text(
+                        "${controller.goodsList[index].title}",
+                        style: TextStyle(
+                          fontSize: ScreenAdapter.fontSize(36),
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                    Text(
-                      "${controller.goodsList[index].subTitle}",
-                      style: TextStyle(
-                        fontSize: ScreenAdapter.fontSize(30),
-                        color: Colors.black54,
+                      Text(
+                        "${controller.goodsList[index].subTitle}",
+                        style: TextStyle(
+                          fontSize: ScreenAdapter.fontSize(30),
+                          color: Colors.black54,
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      height: ScreenAdapter.height(20),
-                    ),
-                    Text(
-                      "¥${controller.goodsList[index].price}元",
-                      style: TextStyle(
-                        fontSize: ScreenAdapter.fontSize(32),
+                      SizedBox(
+                        height: ScreenAdapter.height(20),
                       ),
-                    ),
-                  ],
+                      Text(
+                        "¥${controller.goodsList[index].price}元",
+                        style: TextStyle(
+                          fontSize: ScreenAdapter.fontSize(32),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               );
             },
